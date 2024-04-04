@@ -5,12 +5,15 @@ import java.util.List;
 public class Rest {
 
     public class User {
+
+        // Зазначено модифікатор private тому, що firstName, lastName, email, phone є особистою інформацією користувача
         private String firstName;
         private String lastName;
         private String email;
         private String phone;
 
         // Конструктор для класу User
+        // Визначено модифікатор public, оскільки клас User повинен бути доступний з будь-якого місця програми.
         public User(String firstName, String lastName, String email, String phone) {
             this.firstName = firstName;
             this.lastName = lastName;
@@ -38,12 +41,15 @@ public class Rest {
     }
 
     public class RestaurantBookingSystem implements BookingSystem {
+
+        // Зазначено модифікатор private, щоб забезпечити контроль доступу до списку ресторанів, списку користувачів, списку бронювань та доступу до параметрів системи
         private List<Restaurant> restaurants;
         private List<User> users;
         private List<Reservation> reservations;
         private SystemParameters systemParameters;
 
         // Конструктор для класу RestaurantBookingSystem
+        // Визначено модифікатор public, оскільки клас RestaurantBookingSystem повинен бути доступний з будь-якого місця програми.
         public RestaurantBookingSystem(List<Restaurant> restaurants, List<User> users, List<Reservation> reservations, SystemParameters systemParameters) {
             this.restaurants = restaurants;
             this.users = users;
@@ -68,11 +74,14 @@ public class Rest {
     }
 
     public class Restaurant {
+
+        // Зазначено модифікатор private тому, що name, address  та  numberOfTables  є основною інформацією про ресторан
         private String name;
         private String address;
         private int numberOfTables;
 
         // Конструктор для класу Restaurant
+        // Визначено модифікатор public, оскільки клас Restaurant повинен бути доступний з будь-якого місця програми.
         public Restaurant(String name, String address, int numberOfTables) {
             this.name = name;
             this.address = address;
@@ -89,11 +98,14 @@ public class Rest {
     }
 
     public class Table {
+
+        // Зазначено модифікатор private тому, що isOccupied, number та capacity (Вільність, номер та місця)є внутрішньою властивістю столика
         private boolean isOccupied;
         private int number;
         private int capacity;
 
         // Конструктор для класу Table
+        // Визначено модифікатор public, оскільки клас Table повинен бути доступний з будь-якого місця програми.
         public Table(boolean isOccupied, int number, int capacity) {
             this.isOccupied = isOccupied;
             this.number = number;
@@ -110,12 +122,15 @@ public class Rest {
     }
 
     public class Reservation {
+
+        // Зазначено модифікатор private тому, що date, time, table, confirmed є внутрішньою властивістю бронювання
         private LocalDate date;
         private LocalTime time;
         private Table table;
         private boolean confirmed;
 
         // Конструктор для класу Reservation
+        // Визначено модифікатор public, оскільки клас Reservation повинен бути доступний з будь-якого місця програми
         public Reservation(LocalDate date, LocalTime time, Table table, boolean confirmed) {
             this.date = date;
             this.time = time;
@@ -137,10 +152,13 @@ public class Rest {
     }
 
     public class SystemParameters {
+
+        // Зазначено модифікатор private тому, що versionInfo та lastUpdateDate  є конфіденційною інформацією системи
         private String versionInfo;
         private LocalDate lastUpdateDate;
 
         // Конструктор для класу SystemParameters
+        // Визначено модифікатор public, оскільки клас SystemParameters може бути використаний з будь-якої точки програми
         public SystemParameters(String versionInfo, LocalDate lastUpdateDate) {
             this.versionInfo = versionInfo;
             this.lastUpdateDate = lastUpdateDate;
