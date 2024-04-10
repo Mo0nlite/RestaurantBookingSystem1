@@ -1,19 +1,29 @@
-import java.time.LocalTime;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public class Rest {
 
-    public class User {
+    public static class Main {
+        public static void main(String[] args) {
+            User user1 = new User("John", "Smith", "johnsmith@gmil.com", "380123456789");
+            Restaurant restaurant1 = new Restaurant("Restaurant Abamma", "Вулиця Тараса Шевченко 3", 10);
+            Table table1 = new Table(false, 1, 4);
+            LocalDate currentDate = LocalDate.now();
+            SystemParameters parameters = new SystemParameters("1.0", currentDate);
 
-        // Зазначено модифікатор private тому, що firstName, lastName, email, phone є особистою інформацією користувача
+            // Виклик статичних полів і методів
+            System.out.println("Total restaurants: " + RestaurantBookingSystem.totalRestaurants);
+            System.out.println("Total tables: " + Table.totalTables);
+        }
+    }
+
+    public static class User {
         private String firstName;
         private String lastName;
         private String email;
         private String phone;
 
-        // Конструктор для класу User
-        // Визначено модифікатор public, оскільки клас User повинен бути доступний з будь-якого місця програми.
         public User(String firstName, String lastName, String email, String phone) {
             this.firstName = firstName;
             this.lastName = lastName;
@@ -40,21 +50,20 @@ public class Rest {
         void notifyTableAvailability();
     }
 
-    public class RestaurantBookingSystem implements BookingSystem {
-
-        // Зазначено модифікатор private, щоб забезпечити контроль доступу до списку ресторанів, списку користувачів, списку бронювань та доступу до параметрів системи
+    public static class RestaurantBookingSystem implements BookingSystem {
         private List<Restaurant> restaurants;
         private List<User> users;
         private List<Reservation> reservations;
         private SystemParameters systemParameters;
 
-        // Конструктор для класу RestaurantBookingSystem
-        // Визначено модифікатор public, оскільки клас RestaurantBookingSystem повинен бути доступний з будь-якого місця програми.
+        public static int totalRestaurants = 0; // статичне поле для підрахунку загальної кількості ресторанів
+
         public RestaurantBookingSystem(List<Restaurant> restaurants, List<User> users, List<Reservation> reservations, SystemParameters systemParameters) {
             this.restaurants = restaurants;
             this.users = users;
             this.reservations = reservations;
             this.systemParameters = systemParameters;
+            totalRestaurants++; // збільшення лічильника при кожному створенні нового ресторану
         }
 
         @Override
@@ -73,15 +82,11 @@ public class Rest {
         }
     }
 
-    public class Restaurant {
-
-        // Зазначено модифікатор private тому, що name, address  та  numberOfTables  є основною інформацією про ресторан
+    public static class Restaurant {
         private String name;
         private String address;
         private int numberOfTables;
 
-        // Конструктор для класу Restaurant
-        // Визначено модифікатор public, оскільки клас Restaurant повинен бути доступний з будь-якого місця програми.
         public Restaurant(String name, String address, int numberOfTables) {
             this.name = name;
             this.address = address;
@@ -97,19 +102,18 @@ public class Rest {
         }
     }
 
-    public class Table {
-
-        // Зазначено модифікатор private тому, що isOccupied, number та capacity (Вільність, номер та місця)є внутрішньою властивістю столика
+    public static class Table {
         private boolean isOccupied;
         private int number;
         private int capacity;
 
-        // Конструктор для класу Table
-        // Визначено модифікатор public, оскільки клас Table повинен бути доступний з будь-якого місця програми.
+        public static int totalTables = 0; // статичне поле для підрахунку загальної кількості столиків
+
         public Table(boolean isOccupied, int number, int capacity) {
             this.isOccupied = isOccupied;
             this.number = number;
             this.capacity = capacity;
+            totalTables++; // збільшення лічильника при кожному створенні нового столика
         }
 
         public void markAsOccupied() {
@@ -121,16 +125,12 @@ public class Rest {
         }
     }
 
-    public class Reservation {
-
-        // Зазначено модифікатор private тому, що date, time, table, confirmed є внутрішньою властивістю бронювання
+    public static class Reservation {
         private LocalDate date;
         private LocalTime time;
         private Table table;
         private boolean confirmed;
 
-        // Конструктор для класу Reservation
-        // Визначено модифікатор public, оскільки клас Reservation повинен бути доступний з будь-якого місця програми
         public Reservation(LocalDate date, LocalTime time, Table table, boolean confirmed) {
             this.date = date;
             this.time = time;
@@ -151,30 +151,13 @@ public class Rest {
         }
     }
 
-    public class SystemParameters {
-
-        // Зазначено модифікатор private тому, що versionInfo та lastUpdateDate  є конфіденційною інформацією системи
+    public static class SystemParameters {
         private String versionInfo;
         private LocalDate lastUpdateDate;
 
-        // Конструктор для класу SystemParameters
-        // Визначено модифікатор public, оскільки клас SystemParameters може бути використаний з будь-якої точки програми
         public SystemParameters(String versionInfo, LocalDate lastUpdateDate) {
             this.versionInfo = versionInfo;
             this.lastUpdateDate = lastUpdateDate;
-
-        }
-    }
-
-    public class Main {
-        public static void main(String[] args) {
-            // Створення об'єктів класів
-            User user1 = new User("John", "Smith", "johnsmith@gmil.com", "380123456789");
-            Restaurant restaurant1 = new Restaurant("Restaurant Abamma", "Вулиця Тараса Шевченко 3", 10);
-            Table table1 = new Table(false, 1, 4);
-            LocalDate currentDate = LocalDate.now();
-            SystemParameters parameters = new SystemParameters("1.0", currentDate);
-
 
         }
     }
